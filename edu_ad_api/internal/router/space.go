@@ -7,8 +7,9 @@ import (
 )
 
 func InitSpaceRouter(v1Group *gin.RouterGroup) {
-	userGroup := v1Group.Group("/space")
+	v1Group.GET("/getAdBySpaceKey", api.GetAdBySpaceKey)
 
-	userGroup.GET("/getAllSpaces", api.GetAllSpaces)
+	spaceGroup := v1Group.Group("/space")
+	spaceGroup.GET("/getAllSpaces", api.GetAllSpaces)
 	zap.S().Infow("初始化广告路由成功")
 }
