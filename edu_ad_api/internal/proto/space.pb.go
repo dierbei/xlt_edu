@@ -8,6 +8,7 @@ package proto
 
 import (
 	context "context"
+	empty "github.com/golang/protobuf/ptypes/empty"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -24,16 +25,17 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type AdListResponse struct {
+type AdUpdateStatusRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	SpaceAdInfoListResponses []*SpaceAdInfoListResponse `protobuf:"bytes,1,rep,name=space_ad_info_list_responses,json=spaceAdInfoListResponses,proto3" json:"space_ad_info_list_responses,omitempty"`
+	Id     int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Status int32 `protobuf:"varint,2,opt,name=status,proto3" json:"status,omitempty"`
 }
 
-func (x *AdListResponse) Reset() {
-	*x = AdListResponse{}
+func (x *AdUpdateStatusRequest) Reset() {
+	*x = AdUpdateStatusRequest{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_space_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -41,13 +43,13 @@ func (x *AdListResponse) Reset() {
 	}
 }
 
-func (x *AdListResponse) String() string {
+func (x *AdUpdateStatusRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*AdListResponse) ProtoMessage() {}
+func (*AdUpdateStatusRequest) ProtoMessage() {}
 
-func (x *AdListResponse) ProtoReflect() protoreflect.Message {
+func (x *AdUpdateStatusRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_space_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -59,28 +61,37 @@ func (x *AdListResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use AdListResponse.ProtoReflect.Descriptor instead.
-func (*AdListResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use AdUpdateStatusRequest.ProtoReflect.Descriptor instead.
+func (*AdUpdateStatusRequest) Descriptor() ([]byte, []int) {
 	return file_space_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *AdListResponse) GetSpaceAdInfoListResponses() []*SpaceAdInfoListResponse {
+func (x *AdUpdateStatusRequest) GetId() int32 {
 	if x != nil {
-		return x.SpaceAdInfoListResponses
+		return x.Id
 	}
-	return nil
+	return 0
 }
 
-type SpaceKeyFilterRequest struct {
+func (x *AdUpdateStatusRequest) GetStatus() int32 {
+	if x != nil {
+		return x.Status
+	}
+	return 0
+}
+
+type SpaceSaveOrUpdateRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	SpaceKey []string `protobuf:"bytes,1,rep,name=space_key,json=spaceKey,proto3" json:"space_key,omitempty"`
+	Id       int32  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name     string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	SpaceKey string `protobuf:"bytes,3,opt,name=space_key,json=spaceKey,proto3" json:"space_key,omitempty"`
 }
 
-func (x *SpaceKeyFilterRequest) Reset() {
-	*x = SpaceKeyFilterRequest{}
+func (x *SpaceSaveOrUpdateRequest) Reset() {
+	*x = SpaceSaveOrUpdateRequest{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_space_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -88,13 +99,13 @@ func (x *SpaceKeyFilterRequest) Reset() {
 	}
 }
 
-func (x *SpaceKeyFilterRequest) String() string {
+func (x *SpaceSaveOrUpdateRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*SpaceKeyFilterRequest) ProtoMessage() {}
+func (*SpaceSaveOrUpdateRequest) ProtoMessage() {}
 
-func (x *SpaceKeyFilterRequest) ProtoReflect() protoreflect.Message {
+func (x *SpaceSaveOrUpdateRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_space_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -106,32 +117,42 @@ func (x *SpaceKeyFilterRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use SpaceKeyFilterRequest.ProtoReflect.Descriptor instead.
-func (*SpaceKeyFilterRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use SpaceSaveOrUpdateRequest.ProtoReflect.Descriptor instead.
+func (*SpaceSaveOrUpdateRequest) Descriptor() ([]byte, []int) {
 	return file_space_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *SpaceKeyFilterRequest) GetSpaceKey() []string {
+func (x *SpaceSaveOrUpdateRequest) GetId() int32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *SpaceSaveOrUpdateRequest) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *SpaceSaveOrUpdateRequest) GetSpaceKey() string {
 	if x != nil {
 		return x.SpaceKey
 	}
-	return nil
+	return ""
 }
 
-type SpaceAdInfoListResponse struct {
+type GetSpaceByIdRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id        int32             `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	Name      string            `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	SpaceKey  string            `protobuf:"bytes,3,opt,name=space_key,json=spaceKey,proto3" json:"space_key,omitempty"`
-	BaseProto *BaseProto        `protobuf:"bytes,4,opt,name=base_proto,json=baseProto,proto3" json:"base_proto,omitempty"`
-	SpaceAd   []*AdInfoResponse `protobuf:"bytes,5,rep,name=space_ad,json=spaceAd,proto3" json:"space_ad,omitempty"`
+	Id int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 }
 
-func (x *SpaceAdInfoListResponse) Reset() {
-	*x = SpaceAdInfoListResponse{}
+func (x *GetSpaceByIdRequest) Reset() {
+	*x = GetSpaceByIdRequest{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_space_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -139,13 +160,13 @@ func (x *SpaceAdInfoListResponse) Reset() {
 	}
 }
 
-func (x *SpaceAdInfoListResponse) String() string {
+func (x *GetSpaceByIdRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*SpaceAdInfoListResponse) ProtoMessage() {}
+func (*GetSpaceByIdRequest) ProtoMessage() {}
 
-func (x *SpaceAdInfoListResponse) ProtoReflect() protoreflect.Message {
+func (x *GetSpaceByIdRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_space_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -157,42 +178,676 @@ func (x *SpaceAdInfoListResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use SpaceAdInfoListResponse.ProtoReflect.Descriptor instead.
-func (*SpaceAdInfoListResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use GetSpaceByIdRequest.ProtoReflect.Descriptor instead.
+func (*GetSpaceByIdRequest) Descriptor() ([]byte, []int) {
 	return file_space_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *SpaceAdInfoListResponse) GetId() int32 {
+func (x *GetSpaceByIdRequest) GetId() int32 {
 	if x != nil {
 		return x.Id
 	}
 	return 0
 }
 
-func (x *SpaceAdInfoListResponse) GetName() string {
+type GetSpaceByIdResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id        int32      `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name      string     `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	SpaceKey  string     `protobuf:"bytes,3,opt,name=space_key,json=spaceKey,proto3" json:"space_key,omitempty"`
+	BaseProto *BaseProto `protobuf:"bytes,4,opt,name=base_proto,json=baseProto,proto3" json:"base_proto,omitempty"` // todo 查询广告位的时候是否需要把广告也查询出来
+}
+
+func (x *GetSpaceByIdResponse) Reset() {
+	*x = GetSpaceByIdResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_space_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetSpaceByIdResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetSpaceByIdResponse) ProtoMessage() {}
+
+func (x *GetSpaceByIdResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_space_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetSpaceByIdResponse.ProtoReflect.Descriptor instead.
+func (*GetSpaceByIdResponse) Descriptor() ([]byte, []int) {
+	return file_space_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *GetSpaceByIdResponse) GetId() int32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *GetSpaceByIdResponse) GetName() string {
 	if x != nil {
 		return x.Name
 	}
 	return ""
 }
 
-func (x *SpaceAdInfoListResponse) GetSpaceKey() string {
+func (x *GetSpaceByIdResponse) GetSpaceKey() string {
 	if x != nil {
 		return x.SpaceKey
 	}
 	return ""
 }
 
-func (x *SpaceAdInfoListResponse) GetBaseProto() *BaseProto {
+func (x *GetSpaceByIdResponse) GetBaseProto() *BaseProto {
 	if x != nil {
 		return x.BaseProto
 	}
 	return nil
 }
 
-func (x *SpaceAdInfoListResponse) GetSpaceAd() []*AdInfoResponse {
+type GetAllSpacesRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Pages    int32 `protobuf:"varint,1,opt,name=pages,proto3" json:"pages,omitempty"`
+	PageSize int32 `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+}
+
+func (x *GetAllSpacesRequest) Reset() {
+	*x = GetAllSpacesRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_space_proto_msgTypes[4]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetAllSpacesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAllSpacesRequest) ProtoMessage() {}
+
+func (x *GetAllSpacesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_space_proto_msgTypes[4]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAllSpacesRequest.ProtoReflect.Descriptor instead.
+func (*GetAllSpacesRequest) Descriptor() ([]byte, []int) {
+	return file_space_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *GetAllSpacesRequest) GetPages() int32 {
 	if x != nil {
-		return x.SpaceAd
+		return x.Pages
+	}
+	return 0
+}
+
+func (x *GetAllSpacesRequest) GetPageSize() int32 {
+	if x != nil {
+		return x.PageSize
+	}
+	return 0
+}
+
+type SpaceInfoListResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	SpaceInfoResponse []*SpaceInfoResponse `protobuf:"bytes,1,rep,name=space_info_response,json=spaceInfoResponse,proto3" json:"space_info_response,omitempty"`
+}
+
+func (x *SpaceInfoListResponse) Reset() {
+	*x = SpaceInfoListResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_space_proto_msgTypes[5]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SpaceInfoListResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SpaceInfoListResponse) ProtoMessage() {}
+
+func (x *SpaceInfoListResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_space_proto_msgTypes[5]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SpaceInfoListResponse.ProtoReflect.Descriptor instead.
+func (*SpaceInfoListResponse) Descriptor() ([]byte, []int) {
+	return file_space_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *SpaceInfoListResponse) GetSpaceInfoResponse() []*SpaceInfoResponse {
+	if x != nil {
+		return x.SpaceInfoResponse
+	}
+	return nil
+}
+
+type SpaceInfoResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id        int32      `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name      string     `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	SpaceKey  string     `protobuf:"bytes,3,opt,name=space_key,json=spaceKey,proto3" json:"space_key,omitempty"`
+	BaseProto *BaseProto `protobuf:"bytes,4,opt,name=base_proto,json=baseProto,proto3" json:"base_proto,omitempty"`
+}
+
+func (x *SpaceInfoResponse) Reset() {
+	*x = SpaceInfoResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_space_proto_msgTypes[6]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SpaceInfoResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SpaceInfoResponse) ProtoMessage() {}
+
+func (x *SpaceInfoResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_space_proto_msgTypes[6]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SpaceInfoResponse.ProtoReflect.Descriptor instead.
+func (*SpaceInfoResponse) Descriptor() ([]byte, []int) {
+	return file_space_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *SpaceInfoResponse) GetId() int32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *SpaceInfoResponse) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *SpaceInfoResponse) GetSpaceKey() string {
+	if x != nil {
+		return x.SpaceKey
+	}
+	return ""
+}
+
+func (x *SpaceInfoResponse) GetBaseProto() *BaseProto {
+	if x != nil {
+		return x.BaseProto
+	}
+	return nil
+}
+
+type AdSaveOrUpdateRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Name        string     `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	SpaceId     int32      `protobuf:"varint,2,opt,name=space_id,json=spaceId,proto3" json:"space_id,omitempty"`
+	Keyword     string     `protobuf:"bytes,3,opt,name=keyword,proto3" json:"keyword,omitempty"`
+	HtmlContent string     `protobuf:"bytes,4,opt,name=html_content,json=htmlContent,proto3" json:"html_content,omitempty"`
+	Text        string     `protobuf:"bytes,5,opt,name=text,proto3" json:"text,omitempty"`
+	Link        string     `protobuf:"bytes,6,opt,name=link,proto3" json:"link,omitempty"`
+	StartTime   int64      `protobuf:"varint,7,opt,name=start_time,json=startTime,proto3" json:"start_time,omitempty"`
+	EndTime     int64      `protobuf:"varint,8,opt,name=end_time,json=endTime,proto3" json:"end_time,omitempty"`
+	Status      int32      `protobuf:"varint,9,opt,name=status,proto3" json:"status,omitempty"`
+	Priority    int32      `protobuf:"varint,10,opt,name=priority,proto3" json:"priority,omitempty"`
+	Img         string     `protobuf:"bytes,11,opt,name=img,proto3" json:"img,omitempty"`
+	Id          int32      `protobuf:"varint,12,opt,name=id,proto3" json:"id,omitempty"`
+	BaseProto   *BaseProto `protobuf:"bytes,13,opt,name=base_proto,json=baseProto,proto3" json:"base_proto,omitempty"`
+}
+
+func (x *AdSaveOrUpdateRequest) Reset() {
+	*x = AdSaveOrUpdateRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_space_proto_msgTypes[7]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *AdSaveOrUpdateRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AdSaveOrUpdateRequest) ProtoMessage() {}
+
+func (x *AdSaveOrUpdateRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_space_proto_msgTypes[7]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AdSaveOrUpdateRequest.ProtoReflect.Descriptor instead.
+func (*AdSaveOrUpdateRequest) Descriptor() ([]byte, []int) {
+	return file_space_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *AdSaveOrUpdateRequest) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *AdSaveOrUpdateRequest) GetSpaceId() int32 {
+	if x != nil {
+		return x.SpaceId
+	}
+	return 0
+}
+
+func (x *AdSaveOrUpdateRequest) GetKeyword() string {
+	if x != nil {
+		return x.Keyword
+	}
+	return ""
+}
+
+func (x *AdSaveOrUpdateRequest) GetHtmlContent() string {
+	if x != nil {
+		return x.HtmlContent
+	}
+	return ""
+}
+
+func (x *AdSaveOrUpdateRequest) GetText() string {
+	if x != nil {
+		return x.Text
+	}
+	return ""
+}
+
+func (x *AdSaveOrUpdateRequest) GetLink() string {
+	if x != nil {
+		return x.Link
+	}
+	return ""
+}
+
+func (x *AdSaveOrUpdateRequest) GetStartTime() int64 {
+	if x != nil {
+		return x.StartTime
+	}
+	return 0
+}
+
+func (x *AdSaveOrUpdateRequest) GetEndTime() int64 {
+	if x != nil {
+		return x.EndTime
+	}
+	return 0
+}
+
+func (x *AdSaveOrUpdateRequest) GetStatus() int32 {
+	if x != nil {
+		return x.Status
+	}
+	return 0
+}
+
+func (x *AdSaveOrUpdateRequest) GetPriority() int32 {
+	if x != nil {
+		return x.Priority
+	}
+	return 0
+}
+
+func (x *AdSaveOrUpdateRequest) GetImg() string {
+	if x != nil {
+		return x.Img
+	}
+	return ""
+}
+
+func (x *AdSaveOrUpdateRequest) GetId() int32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *AdSaveOrUpdateRequest) GetBaseProto() *BaseProto {
+	if x != nil {
+		return x.BaseProto
+	}
+	return nil
+}
+
+type GetAllAdsResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id            int32             `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name          string            `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	SpaceKey      string            `protobuf:"bytes,3,opt,name=space_key,json=spaceKey,proto3" json:"space_key,omitempty"`
+	BaseProto     *BaseProto        `protobuf:"bytes,4,opt,name=base_proto,json=baseProto,proto3" json:"base_proto,omitempty"`
+	AdInfoListRsp []*AdInfoResponse `protobuf:"bytes,5,rep,name=ad_info_list_rsp,json=adInfoListRsp,proto3" json:"ad_info_list_rsp,omitempty"`
+}
+
+func (x *GetAllAdsResponse) Reset() {
+	*x = GetAllAdsResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_space_proto_msgTypes[8]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetAllAdsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAllAdsResponse) ProtoMessage() {}
+
+func (x *GetAllAdsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_space_proto_msgTypes[8]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAllAdsResponse.ProtoReflect.Descriptor instead.
+func (*GetAllAdsResponse) Descriptor() ([]byte, []int) {
+	return file_space_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *GetAllAdsResponse) GetId() int32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *GetAllAdsResponse) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *GetAllAdsResponse) GetSpaceKey() string {
+	if x != nil {
+		return x.SpaceKey
+	}
+	return ""
+}
+
+func (x *GetAllAdsResponse) GetBaseProto() *BaseProto {
+	if x != nil {
+		return x.BaseProto
+	}
+	return nil
+}
+
+func (x *GetAllAdsResponse) GetAdInfoListRsp() []*AdInfoResponse {
+	if x != nil {
+		return x.AdInfoListRsp
+	}
+	return nil
+}
+
+type GetAllAdsRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	SpaceKey string `protobuf:"bytes,1,opt,name=space_key,json=spaceKey,proto3" json:"space_key,omitempty"`
+}
+
+func (x *GetAllAdsRequest) Reset() {
+	*x = GetAllAdsRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_space_proto_msgTypes[9]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetAllAdsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAllAdsRequest) ProtoMessage() {}
+
+func (x *GetAllAdsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_space_proto_msgTypes[9]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAllAdsRequest.ProtoReflect.Descriptor instead.
+func (*GetAllAdsRequest) Descriptor() ([]byte, []int) {
+	return file_space_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *GetAllAdsRequest) GetSpaceKey() string {
+	if x != nil {
+		return x.SpaceKey
+	}
+	return ""
+}
+
+type GetAdListRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Pages    int32 `protobuf:"varint,1,opt,name=pages,proto3" json:"pages,omitempty"`
+	PageSize int32 `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+}
+
+func (x *GetAdListRequest) Reset() {
+	*x = GetAdListRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_space_proto_msgTypes[10]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetAdListRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAdListRequest) ProtoMessage() {}
+
+func (x *GetAdListRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_space_proto_msgTypes[10]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAdListRequest.ProtoReflect.Descriptor instead.
+func (*GetAdListRequest) Descriptor() ([]byte, []int) {
+	return file_space_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *GetAdListRequest) GetPages() int32 {
+	if x != nil {
+		return x.Pages
+	}
+	return 0
+}
+
+func (x *GetAdListRequest) GetPageSize() int32 {
+	if x != nil {
+		return x.PageSize
+	}
+	return 0
+}
+
+type GetAdByIdRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (x *GetAdByIdRequest) Reset() {
+	*x = GetAdByIdRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_space_proto_msgTypes[11]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetAdByIdRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAdByIdRequest) ProtoMessage() {}
+
+func (x *GetAdByIdRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_space_proto_msgTypes[11]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAdByIdRequest.ProtoReflect.Descriptor instead.
+func (*GetAdByIdRequest) Descriptor() ([]byte, []int) {
+	return file_space_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *GetAdByIdRequest) GetId() int32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+type AdInfoListResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	AdInfoResponses []*AdInfoResponse `protobuf:"bytes,1,rep,name=ad_info_responses,json=adInfoResponses,proto3" json:"ad_info_responses,omitempty"`
+}
+
+func (x *AdInfoListResponse) Reset() {
+	*x = AdInfoListResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_space_proto_msgTypes[12]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *AdInfoListResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AdInfoListResponse) ProtoMessage() {}
+
+func (x *AdInfoListResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_space_proto_msgTypes[12]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AdInfoListResponse.ProtoReflect.Descriptor instead.
+func (*AdInfoListResponse) Descriptor() ([]byte, []int) {
+	return file_space_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *AdInfoListResponse) GetAdInfoResponses() []*AdInfoResponse {
+	if x != nil {
+		return x.AdInfoResponses
 	}
 	return nil
 }
@@ -213,13 +868,14 @@ type AdInfoResponse struct {
 	Status      int32      `protobuf:"varint,9,opt,name=status,proto3" json:"status,omitempty"`
 	Priority    int32      `protobuf:"varint,10,opt,name=priority,proto3" json:"priority,omitempty"`
 	Img         string     `protobuf:"bytes,11,opt,name=img,proto3" json:"img,omitempty"`
-	BaseProto   *BaseProto `protobuf:"bytes,12,opt,name=base_proto,json=baseProto,proto3" json:"base_proto,omitempty"`
+	Id          int32      `protobuf:"varint,12,opt,name=id,proto3" json:"id,omitempty"`
+	BaseProto   *BaseProto `protobuf:"bytes,13,opt,name=base_proto,json=baseProto,proto3" json:"base_proto,omitempty"`
 }
 
 func (x *AdInfoResponse) Reset() {
 	*x = AdInfoResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_space_proto_msgTypes[3]
+		mi := &file_space_proto_msgTypes[13]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -232,7 +888,7 @@ func (x *AdInfoResponse) String() string {
 func (*AdInfoResponse) ProtoMessage() {}
 
 func (x *AdInfoResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_space_proto_msgTypes[3]
+	mi := &file_space_proto_msgTypes[13]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -245,7 +901,7 @@ func (x *AdInfoResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AdInfoResponse.ProtoReflect.Descriptor instead.
 func (*AdInfoResponse) Descriptor() ([]byte, []int) {
-	return file_space_proto_rawDescGZIP(), []int{3}
+	return file_space_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *AdInfoResponse) GetName() string {
@@ -325,190 +981,16 @@ func (x *AdInfoResponse) GetImg() string {
 	return ""
 }
 
-func (x *AdInfoResponse) GetBaseProto() *BaseProto {
-	if x != nil {
-		return x.BaseProto
-	}
-	return nil
-}
-
-type SpaceFilterRequest struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Pages    int32 `protobuf:"varint,1,opt,name=pages,proto3" json:"pages,omitempty"`
-	PageSize int32 `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
-}
-
-func (x *SpaceFilterRequest) Reset() {
-	*x = SpaceFilterRequest{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_space_proto_msgTypes[4]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *SpaceFilterRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*SpaceFilterRequest) ProtoMessage() {}
-
-func (x *SpaceFilterRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_space_proto_msgTypes[4]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use SpaceFilterRequest.ProtoReflect.Descriptor instead.
-func (*SpaceFilterRequest) Descriptor() ([]byte, []int) {
-	return file_space_proto_rawDescGZIP(), []int{4}
-}
-
-func (x *SpaceFilterRequest) GetPages() int32 {
-	if x != nil {
-		return x.Pages
-	}
-	return 0
-}
-
-func (x *SpaceFilterRequest) GetPageSize() int32 {
-	if x != nil {
-		return x.PageSize
-	}
-	return 0
-}
-
-type SpaceInfoResponse struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Id        int32      `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	Name      string     `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	SpaceKey  string     `protobuf:"bytes,3,opt,name=space_key,json=spaceKey,proto3" json:"space_key,omitempty"`
-	BaseProto *BaseProto `protobuf:"bytes,6,opt,name=base_proto,json=baseProto,proto3" json:"base_proto,omitempty"`
-}
-
-func (x *SpaceInfoResponse) Reset() {
-	*x = SpaceInfoResponse{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_space_proto_msgTypes[5]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *SpaceInfoResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*SpaceInfoResponse) ProtoMessage() {}
-
-func (x *SpaceInfoResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_space_proto_msgTypes[5]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use SpaceInfoResponse.ProtoReflect.Descriptor instead.
-func (*SpaceInfoResponse) Descriptor() ([]byte, []int) {
-	return file_space_proto_rawDescGZIP(), []int{5}
-}
-
-func (x *SpaceInfoResponse) GetId() int32 {
+func (x *AdInfoResponse) GetId() int32 {
 	if x != nil {
 		return x.Id
 	}
 	return 0
 }
 
-func (x *SpaceInfoResponse) GetName() string {
-	if x != nil {
-		return x.Name
-	}
-	return ""
-}
-
-func (x *SpaceInfoResponse) GetSpaceKey() string {
-	if x != nil {
-		return x.SpaceKey
-	}
-	return ""
-}
-
-func (x *SpaceInfoResponse) GetBaseProto() *BaseProto {
+func (x *AdInfoResponse) GetBaseProto() *BaseProto {
 	if x != nil {
 		return x.BaseProto
-	}
-	return nil
-}
-
-type SpaceListResponse struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Total     int32                `protobuf:"varint,1,opt,name=total,proto3" json:"total,omitempty"`
-	SpaceList []*SpaceInfoResponse `protobuf:"bytes,3,rep,name=space_list,json=spaceList,proto3" json:"space_list,omitempty"`
-}
-
-func (x *SpaceListResponse) Reset() {
-	*x = SpaceListResponse{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_space_proto_msgTypes[6]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *SpaceListResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*SpaceListResponse) ProtoMessage() {}
-
-func (x *SpaceListResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_space_proto_msgTypes[6]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use SpaceListResponse.ProtoReflect.Descriptor instead.
-func (*SpaceListResponse) Descriptor() ([]byte, []int) {
-	return file_space_proto_rawDescGZIP(), []int{6}
-}
-
-func (x *SpaceListResponse) GetTotal() int32 {
-	if x != nil {
-		return x.Total
-	}
-	return 0
-}
-
-func (x *SpaceListResponse) GetSpaceList() []*SpaceInfoResponse {
-	if x != nil {
-		return x.SpaceList
 	}
 	return nil
 }
@@ -526,7 +1008,7 @@ type BaseProto struct {
 func (x *BaseProto) Reset() {
 	*x = BaseProto{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_space_proto_msgTypes[7]
+		mi := &file_space_proto_msgTypes[14]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -539,7 +1021,7 @@ func (x *BaseProto) String() string {
 func (*BaseProto) ProtoMessage() {}
 
 func (x *BaseProto) ProtoReflect() protoreflect.Message {
-	mi := &file_space_proto_msgTypes[7]
+	mi := &file_space_proto_msgTypes[14]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -552,7 +1034,7 @@ func (x *BaseProto) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use BaseProto.ProtoReflect.Descriptor instead.
 func (*BaseProto) Descriptor() ([]byte, []int) {
-	return file_space_proto_rawDescGZIP(), []int{7}
+	return file_space_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *BaseProto) GetCreateTime() int64 {
@@ -579,30 +1061,50 @@ func (x *BaseProto) GetDeleteTime() int64 {
 var File_space_proto protoreflect.FileDescriptor
 
 var file_space_proto_rawDesc = []byte{
-	0x0a, 0x0b, 0x73, 0x70, 0x61, 0x63, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0x6a, 0x0a,
-	0x0e, 0x41, 0x64, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
-	0x58, 0x0a, 0x1c, 0x73, 0x70, 0x61, 0x63, 0x65, 0x5f, 0x61, 0x64, 0x5f, 0x69, 0x6e, 0x66, 0x6f,
-	0x5f, 0x6c, 0x69, 0x73, 0x74, 0x5f, 0x72, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x73, 0x18,
-	0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x18, 0x2e, 0x53, 0x70, 0x61, 0x63, 0x65, 0x41, 0x64, 0x49,
-	0x6e, 0x66, 0x6f, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x52,
-	0x18, 0x73, 0x70, 0x61, 0x63, 0x65, 0x41, 0x64, 0x49, 0x6e, 0x66, 0x6f, 0x4c, 0x69, 0x73, 0x74,
-	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x73, 0x22, 0x34, 0x0a, 0x15, 0x53, 0x70, 0x61,
-	0x63, 0x65, 0x4b, 0x65, 0x79, 0x46, 0x69, 0x6c, 0x74, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65,
-	0x73, 0x74, 0x12, 0x1b, 0x0a, 0x09, 0x73, 0x70, 0x61, 0x63, 0x65, 0x5f, 0x6b, 0x65, 0x79, 0x18,
-	0x01, 0x20, 0x03, 0x28, 0x09, 0x52, 0x08, 0x73, 0x70, 0x61, 0x63, 0x65, 0x4b, 0x65, 0x79, 0x22,
-	0xb1, 0x01, 0x0a, 0x17, 0x53, 0x70, 0x61, 0x63, 0x65, 0x41, 0x64, 0x49, 0x6e, 0x66, 0x6f, 0x4c,
-	0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x0e, 0x0a, 0x02, 0x69,
-	0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x02, 0x69, 0x64, 0x12, 0x12, 0x0a, 0x04, 0x6e,
-	0x61, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12,
-	0x1b, 0x0a, 0x09, 0x73, 0x70, 0x61, 0x63, 0x65, 0x5f, 0x6b, 0x65, 0x79, 0x18, 0x03, 0x20, 0x01,
-	0x28, 0x09, 0x52, 0x08, 0x73, 0x70, 0x61, 0x63, 0x65, 0x4b, 0x65, 0x79, 0x12, 0x29, 0x0a, 0x0a,
-	0x62, 0x61, 0x73, 0x65, 0x5f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0b,
-	0x32, 0x0a, 0x2e, 0x42, 0x61, 0x73, 0x65, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x52, 0x09, 0x62, 0x61,
-	0x73, 0x65, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x2a, 0x0a, 0x08, 0x73, 0x70, 0x61, 0x63, 0x65,
-	0x5f, 0x61, 0x64, 0x18, 0x05, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x0f, 0x2e, 0x41, 0x64, 0x49, 0x6e,
-	0x66, 0x6f, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x52, 0x07, 0x73, 0x70, 0x61, 0x63,
-	0x65, 0x41, 0x64, 0x22, 0xcf, 0x02, 0x0a, 0x0e, 0x41, 0x64, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65,
-	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01,
+	0x0a, 0x0b, 0x73, 0x70, 0x61, 0x63, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x1b, 0x67,
+	0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2f, 0x65,
+	0x6d, 0x70, 0x74, 0x79, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0x3f, 0x0a, 0x15, 0x41, 0x64,
+	0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52,
+	0x02, 0x69, 0x64, 0x12, 0x16, 0x0a, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x02, 0x20,
+	0x01, 0x28, 0x05, 0x52, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x22, 0x5b, 0x0a, 0x18, 0x53,
+	0x70, 0x61, 0x63, 0x65, 0x53, 0x61, 0x76, 0x65, 0x4f, 0x72, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65,
+	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x05, 0x52, 0x02, 0x69, 0x64, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18,
+	0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x1b, 0x0a, 0x09, 0x73,
+	0x70, 0x61, 0x63, 0x65, 0x5f, 0x6b, 0x65, 0x79, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08,
+	0x73, 0x70, 0x61, 0x63, 0x65, 0x4b, 0x65, 0x79, 0x22, 0x25, 0x0a, 0x13, 0x47, 0x65, 0x74, 0x53,
+	0x70, 0x61, 0x63, 0x65, 0x42, 0x79, 0x49, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12,
+	0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x02, 0x69, 0x64, 0x22,
+	0x82, 0x01, 0x0a, 0x14, 0x47, 0x65, 0x74, 0x53, 0x70, 0x61, 0x63, 0x65, 0x42, 0x79, 0x49, 0x64,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x05, 0x52, 0x02, 0x69, 0x64, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65,
+	0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x1b, 0x0a, 0x09,
+	0x73, 0x70, 0x61, 0x63, 0x65, 0x5f, 0x6b, 0x65, 0x79, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x08, 0x73, 0x70, 0x61, 0x63, 0x65, 0x4b, 0x65, 0x79, 0x12, 0x29, 0x0a, 0x0a, 0x62, 0x61, 0x73,
+	0x65, 0x5f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0a, 0x2e,
+	0x42, 0x61, 0x73, 0x65, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x52, 0x09, 0x62, 0x61, 0x73, 0x65, 0x50,
+	0x72, 0x6f, 0x74, 0x6f, 0x22, 0x48, 0x0a, 0x13, 0x47, 0x65, 0x74, 0x41, 0x6c, 0x6c, 0x53, 0x70,
+	0x61, 0x63, 0x65, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x14, 0x0a, 0x05, 0x70,
+	0x61, 0x67, 0x65, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x05, 0x70, 0x61, 0x67, 0x65,
+	0x73, 0x12, 0x1b, 0x0a, 0x09, 0x70, 0x61, 0x67, 0x65, 0x5f, 0x73, 0x69, 0x7a, 0x65, 0x18, 0x02,
+	0x20, 0x01, 0x28, 0x05, 0x52, 0x08, 0x70, 0x61, 0x67, 0x65, 0x53, 0x69, 0x7a, 0x65, 0x22, 0x5b,
+	0x0a, 0x15, 0x53, 0x70, 0x61, 0x63, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x4c, 0x69, 0x73, 0x74, 0x52,
+	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x42, 0x0a, 0x13, 0x73, 0x70, 0x61, 0x63, 0x65,
+	0x5f, 0x69, 0x6e, 0x66, 0x6f, 0x5f, 0x72, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x18, 0x01,
+	0x20, 0x03, 0x28, 0x0b, 0x32, 0x12, 0x2e, 0x53, 0x70, 0x61, 0x63, 0x65, 0x49, 0x6e, 0x66, 0x6f,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x52, 0x11, 0x73, 0x70, 0x61, 0x63, 0x65, 0x49,
+	0x6e, 0x66, 0x6f, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x7f, 0x0a, 0x11, 0x53,
+	0x70, 0x61, 0x63, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x02, 0x69, 0x64,
+	0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04,
+	0x6e, 0x61, 0x6d, 0x65, 0x12, 0x1b, 0x0a, 0x09, 0x73, 0x70, 0x61, 0x63, 0x65, 0x5f, 0x6b, 0x65,
+	0x79, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x73, 0x70, 0x61, 0x63, 0x65, 0x4b, 0x65,
+	0x79, 0x12, 0x29, 0x0a, 0x0a, 0x62, 0x61, 0x73, 0x65, 0x5f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x18,
+	0x04, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0a, 0x2e, 0x42, 0x61, 0x73, 0x65, 0x50, 0x72, 0x6f, 0x74,
+	0x6f, 0x52, 0x09, 0x62, 0x61, 0x73, 0x65, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0xe6, 0x02, 0x0a,
+	0x15, 0x41, 0x64, 0x53, 0x61, 0x76, 0x65, 0x4f, 0x72, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x52,
+	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01,
 	0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x19, 0x0a, 0x08, 0x73, 0x70,
 	0x61, 0x63, 0x65, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x52, 0x07, 0x73, 0x70,
 	0x61, 0x63, 0x65, 0x49, 0x64, 0x12, 0x18, 0x0a, 0x07, 0x6b, 0x65, 0x79, 0x77, 0x6f, 0x72, 0x64,
@@ -619,44 +1121,99 @@ var file_space_proto_rawDesc = []byte{
 	0x20, 0x01, 0x28, 0x05, 0x52, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x1a, 0x0a, 0x08,
 	0x70, 0x72, 0x69, 0x6f, 0x72, 0x69, 0x74, 0x79, 0x18, 0x0a, 0x20, 0x01, 0x28, 0x05, 0x52, 0x08,
 	0x70, 0x72, 0x69, 0x6f, 0x72, 0x69, 0x74, 0x79, 0x12, 0x10, 0x0a, 0x03, 0x69, 0x6d, 0x67, 0x18,
-	0x0b, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x69, 0x6d, 0x67, 0x12, 0x29, 0x0a, 0x0a, 0x62, 0x61,
-	0x73, 0x65, 0x5f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x18, 0x0c, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0a,
+	0x0b, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x69, 0x6d, 0x67, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64,
+	0x18, 0x0c, 0x20, 0x01, 0x28, 0x05, 0x52, 0x02, 0x69, 0x64, 0x12, 0x29, 0x0a, 0x0a, 0x62, 0x61,
+	0x73, 0x65, 0x5f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x18, 0x0d, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0a,
 	0x2e, 0x42, 0x61, 0x73, 0x65, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x52, 0x09, 0x62, 0x61, 0x73, 0x65,
-	0x50, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0x47, 0x0a, 0x12, 0x53, 0x70, 0x61, 0x63, 0x65, 0x46, 0x69,
-	0x6c, 0x74, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x14, 0x0a, 0x05, 0x70,
-	0x61, 0x67, 0x65, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x05, 0x70, 0x61, 0x67, 0x65,
-	0x73, 0x12, 0x1b, 0x0a, 0x09, 0x70, 0x61, 0x67, 0x65, 0x5f, 0x73, 0x69, 0x7a, 0x65, 0x18, 0x02,
-	0x20, 0x01, 0x28, 0x05, 0x52, 0x08, 0x70, 0x61, 0x67, 0x65, 0x53, 0x69, 0x7a, 0x65, 0x22, 0x7f,
-	0x0a, 0x11, 0x53, 0x70, 0x61, 0x63, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x73, 0x70, 0x6f,
-	0x6e, 0x73, 0x65, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52,
-	0x02, 0x69, 0x64, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28,
-	0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x1b, 0x0a, 0x09, 0x73, 0x70, 0x61, 0x63, 0x65,
-	0x5f, 0x6b, 0x65, 0x79, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x73, 0x70, 0x61, 0x63,
-	0x65, 0x4b, 0x65, 0x79, 0x12, 0x29, 0x0a, 0x0a, 0x62, 0x61, 0x73, 0x65, 0x5f, 0x70, 0x72, 0x6f,
-	0x74, 0x6f, 0x18, 0x06, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0a, 0x2e, 0x42, 0x61, 0x73, 0x65, 0x50,
-	0x72, 0x6f, 0x74, 0x6f, 0x52, 0x09, 0x62, 0x61, 0x73, 0x65, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x22,
-	0x5c, 0x0a, 0x11, 0x53, 0x70, 0x61, 0x63, 0x65, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70,
-	0x6f, 0x6e, 0x73, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x18, 0x01, 0x20,
-	0x01, 0x28, 0x05, 0x52, 0x05, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x12, 0x31, 0x0a, 0x0a, 0x73, 0x70,
-	0x61, 0x63, 0x65, 0x5f, 0x6c, 0x69, 0x73, 0x74, 0x18, 0x03, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x12,
-	0x2e, 0x53, 0x70, 0x61, 0x63, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
-	0x73, 0x65, 0x52, 0x09, 0x73, 0x70, 0x61, 0x63, 0x65, 0x4c, 0x69, 0x73, 0x74, 0x22, 0x6e, 0x0a,
-	0x09, 0x42, 0x61, 0x73, 0x65, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x1f, 0x0a, 0x0b, 0x63, 0x72,
-	0x65, 0x61, 0x74, 0x65, 0x5f, 0x74, 0x69, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52,
-	0x0a, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x54, 0x69, 0x6d, 0x65, 0x12, 0x1f, 0x0a, 0x0b, 0x75,
-	0x70, 0x64, 0x61, 0x74, 0x65, 0x5f, 0x74, 0x69, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x03,
-	0x52, 0x0a, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x54, 0x69, 0x6d, 0x65, 0x12, 0x1f, 0x0a, 0x0b,
-	0x64, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x5f, 0x74, 0x69, 0x6d, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28,
-	0x03, 0x52, 0x0a, 0x64, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x54, 0x69, 0x6d, 0x65, 0x32, 0x7c, 0x0a,
-	0x05, 0x53, 0x70, 0x61, 0x63, 0x65, 0x12, 0x37, 0x0a, 0x0c, 0x47, 0x65, 0x74, 0x41, 0x6c, 0x6c,
-	0x53, 0x70, 0x61, 0x63, 0x65, 0x73, 0x12, 0x13, 0x2e, 0x53, 0x70, 0x61, 0x63, 0x65, 0x46, 0x69,
-	0x6c, 0x74, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x12, 0x2e, 0x53, 0x70,
-	0x61, 0x63, 0x65, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
-	0x3a, 0x0a, 0x0f, 0x47, 0x65, 0x74, 0x41, 0x64, 0x42, 0x79, 0x53, 0x70, 0x61, 0x63, 0x65, 0x4b,
-	0x65, 0x79, 0x12, 0x16, 0x2e, 0x53, 0x70, 0x61, 0x63, 0x65, 0x4b, 0x65, 0x79, 0x46, 0x69, 0x6c,
-	0x74, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x0f, 0x2e, 0x41, 0x64, 0x4c,
-	0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x42, 0x0a, 0x5a, 0x08, 0x2f,
-	0x2e, 0x3b, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x50, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0xb9, 0x01, 0x0a, 0x11, 0x47, 0x65, 0x74, 0x41, 0x6c, 0x6c,
+	0x41, 0x64, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x0e, 0x0a, 0x02, 0x69,
+	0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x02, 0x69, 0x64, 0x12, 0x12, 0x0a, 0x04, 0x6e,
+	0x61, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12,
+	0x1b, 0x0a, 0x09, 0x73, 0x70, 0x61, 0x63, 0x65, 0x5f, 0x6b, 0x65, 0x79, 0x18, 0x03, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x08, 0x73, 0x70, 0x61, 0x63, 0x65, 0x4b, 0x65, 0x79, 0x12, 0x29, 0x0a, 0x0a,
+	0x62, 0x61, 0x73, 0x65, 0x5f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0b,
+	0x32, 0x0a, 0x2e, 0x42, 0x61, 0x73, 0x65, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x52, 0x09, 0x62, 0x61,
+	0x73, 0x65, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x38, 0x0a, 0x10, 0x61, 0x64, 0x5f, 0x69, 0x6e,
+	0x66, 0x6f, 0x5f, 0x6c, 0x69, 0x73, 0x74, 0x5f, 0x72, 0x73, 0x70, 0x18, 0x05, 0x20, 0x03, 0x28,
+	0x0b, 0x32, 0x0f, 0x2e, 0x41, 0x64, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
+	0x73, 0x65, 0x52, 0x0d, 0x61, 0x64, 0x49, 0x6e, 0x66, 0x6f, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x73,
+	0x70, 0x22, 0x2f, 0x0a, 0x10, 0x47, 0x65, 0x74, 0x41, 0x6c, 0x6c, 0x41, 0x64, 0x73, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x1b, 0x0a, 0x09, 0x73, 0x70, 0x61, 0x63, 0x65, 0x5f, 0x6b,
+	0x65, 0x79, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x73, 0x70, 0x61, 0x63, 0x65, 0x4b,
+	0x65, 0x79, 0x22, 0x45, 0x0a, 0x10, 0x47, 0x65, 0x74, 0x41, 0x64, 0x4c, 0x69, 0x73, 0x74, 0x52,
+	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x14, 0x0a, 0x05, 0x70, 0x61, 0x67, 0x65, 0x73, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x05, 0x70, 0x61, 0x67, 0x65, 0x73, 0x12, 0x1b, 0x0a, 0x09,
+	0x70, 0x61, 0x67, 0x65, 0x5f, 0x73, 0x69, 0x7a, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x52,
+	0x08, 0x70, 0x61, 0x67, 0x65, 0x53, 0x69, 0x7a, 0x65, 0x22, 0x22, 0x0a, 0x10, 0x47, 0x65, 0x74,
+	0x41, 0x64, 0x42, 0x79, 0x49, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a,
+	0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x02, 0x69, 0x64, 0x22, 0x51, 0x0a,
+	0x12, 0x41, 0x64, 0x49, 0x6e, 0x66, 0x6f, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f,
+	0x6e, 0x73, 0x65, 0x12, 0x3b, 0x0a, 0x11, 0x61, 0x64, 0x5f, 0x69, 0x6e, 0x66, 0x6f, 0x5f, 0x72,
+	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x0f,
+	0x2e, 0x41, 0x64, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x52,
+	0x0f, 0x61, 0x64, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x73,
+	0x22, 0xdf, 0x02, 0x0a, 0x0e, 0x41, 0x64, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x73, 0x70, 0x6f,
+	0x6e, 0x73, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x19, 0x0a, 0x08, 0x73, 0x70, 0x61, 0x63, 0x65,
+	0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x52, 0x07, 0x73, 0x70, 0x61, 0x63, 0x65,
+	0x49, 0x64, 0x12, 0x18, 0x0a, 0x07, 0x6b, 0x65, 0x79, 0x77, 0x6f, 0x72, 0x64, 0x18, 0x03, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x07, 0x6b, 0x65, 0x79, 0x77, 0x6f, 0x72, 0x64, 0x12, 0x21, 0x0a, 0x0c,
+	0x68, 0x74, 0x6d, 0x6c, 0x5f, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x04, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x0b, 0x68, 0x74, 0x6d, 0x6c, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12,
+	0x12, 0x0a, 0x04, 0x74, 0x65, 0x78, 0x74, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x74,
+	0x65, 0x78, 0x74, 0x12, 0x12, 0x0a, 0x04, 0x6c, 0x69, 0x6e, 0x6b, 0x18, 0x06, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x04, 0x6c, 0x69, 0x6e, 0x6b, 0x12, 0x1d, 0x0a, 0x0a, 0x73, 0x74, 0x61, 0x72, 0x74,
+	0x5f, 0x74, 0x69, 0x6d, 0x65, 0x18, 0x07, 0x20, 0x01, 0x28, 0x03, 0x52, 0x09, 0x73, 0x74, 0x61,
+	0x72, 0x74, 0x54, 0x69, 0x6d, 0x65, 0x12, 0x19, 0x0a, 0x08, 0x65, 0x6e, 0x64, 0x5f, 0x74, 0x69,
+	0x6d, 0x65, 0x18, 0x08, 0x20, 0x01, 0x28, 0x03, 0x52, 0x07, 0x65, 0x6e, 0x64, 0x54, 0x69, 0x6d,
+	0x65, 0x12, 0x16, 0x0a, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x09, 0x20, 0x01, 0x28,
+	0x05, 0x52, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x1a, 0x0a, 0x08, 0x70, 0x72, 0x69,
+	0x6f, 0x72, 0x69, 0x74, 0x79, 0x18, 0x0a, 0x20, 0x01, 0x28, 0x05, 0x52, 0x08, 0x70, 0x72, 0x69,
+	0x6f, 0x72, 0x69, 0x74, 0x79, 0x12, 0x10, 0x0a, 0x03, 0x69, 0x6d, 0x67, 0x18, 0x0b, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x03, 0x69, 0x6d, 0x67, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x0c, 0x20,
+	0x01, 0x28, 0x05, 0x52, 0x02, 0x69, 0x64, 0x12, 0x29, 0x0a, 0x0a, 0x62, 0x61, 0x73, 0x65, 0x5f,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x18, 0x0d, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0a, 0x2e, 0x42, 0x61,
+	0x73, 0x65, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x52, 0x09, 0x62, 0x61, 0x73, 0x65, 0x50, 0x72, 0x6f,
+	0x74, 0x6f, 0x22, 0x6e, 0x0a, 0x09, 0x42, 0x61, 0x73, 0x65, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x12,
+	0x1f, 0x0a, 0x0b, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x5f, 0x74, 0x69, 0x6d, 0x65, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x03, 0x52, 0x0a, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x54, 0x69, 0x6d, 0x65,
+	0x12, 0x1f, 0x0a, 0x0b, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x5f, 0x74, 0x69, 0x6d, 0x65, 0x18,
+	0x02, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0a, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x54, 0x69, 0x6d,
+	0x65, 0x12, 0x1f, 0x0a, 0x0b, 0x64, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x5f, 0x74, 0x69, 0x6d, 0x65,
+	0x18, 0x03, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0a, 0x64, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x54, 0x69,
+	0x6d, 0x65, 0x32, 0xe8, 0x03, 0x0a, 0x05, 0x53, 0x70, 0x61, 0x63, 0x65, 0x12, 0x2f, 0x0a, 0x09,
+	0x47, 0x65, 0x74, 0x41, 0x64, 0x42, 0x79, 0x49, 0x64, 0x12, 0x11, 0x2e, 0x47, 0x65, 0x74, 0x41,
+	0x64, 0x42, 0x79, 0x49, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x0f, 0x2e, 0x41,
+	0x64, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x33, 0x0a,
+	0x09, 0x47, 0x65, 0x74, 0x41, 0x64, 0x4c, 0x69, 0x73, 0x74, 0x12, 0x11, 0x2e, 0x47, 0x65, 0x74,
+	0x41, 0x64, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x13, 0x2e,
+	0x41, 0x64, 0x49, 0x6e, 0x66, 0x6f, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
+	0x73, 0x65, 0x12, 0x32, 0x0a, 0x09, 0x47, 0x65, 0x74, 0x41, 0x6c, 0x6c, 0x41, 0x64, 0x73, 0x12,
+	0x11, 0x2e, 0x47, 0x65, 0x74, 0x41, 0x6c, 0x6c, 0x41, 0x64, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x1a, 0x12, 0x2e, 0x47, 0x65, 0x74, 0x41, 0x6c, 0x6c, 0x41, 0x64, 0x73, 0x52, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x40, 0x0a, 0x0e, 0x41, 0x64, 0x53, 0x61, 0x76, 0x65,
+	0x4f, 0x72, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x12, 0x16, 0x2e, 0x41, 0x64, 0x53, 0x61, 0x76,
+	0x65, 0x4f, 0x72, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
+	0x1a, 0x16, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62,
+	0x75, 0x66, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x12, 0x3c, 0x0a, 0x0c, 0x47, 0x65, 0x74, 0x41,
+	0x6c, 0x6c, 0x53, 0x70, 0x61, 0x63, 0x65, 0x73, 0x12, 0x14, 0x2e, 0x47, 0x65, 0x74, 0x41, 0x6c,
+	0x6c, 0x53, 0x70, 0x61, 0x63, 0x65, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x16,
+	0x2e, 0x53, 0x70, 0x61, 0x63, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x3b, 0x0a, 0x0c, 0x47, 0x65, 0x74, 0x53, 0x70, 0x61,
+	0x63, 0x65, 0x42, 0x79, 0x49, 0x64, 0x12, 0x14, 0x2e, 0x47, 0x65, 0x74, 0x53, 0x70, 0x61, 0x63,
+	0x65, 0x42, 0x79, 0x49, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x15, 0x2e, 0x47,
+	0x65, 0x74, 0x53, 0x70, 0x61, 0x63, 0x65, 0x42, 0x79, 0x49, 0x64, 0x52, 0x65, 0x73, 0x70, 0x6f,
+	0x6e, 0x73, 0x65, 0x12, 0x46, 0x0a, 0x11, 0x53, 0x70, 0x61, 0x63, 0x65, 0x53, 0x61, 0x76, 0x65,
+	0x4f, 0x72, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x12, 0x19, 0x2e, 0x53, 0x70, 0x61, 0x63, 0x65,
+	0x53, 0x61, 0x76, 0x65, 0x4f, 0x72, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x1a, 0x16, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x12, 0x40, 0x0a, 0x0e, 0x41,
+	0x64, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x16, 0x2e,
+	0x41, 0x64, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x16, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70,
+	0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x42, 0x0a, 0x5a,
+	0x08, 0x2f, 0x2e, 0x3b, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x33,
 }
 
 var (
@@ -671,33 +1228,55 @@ func file_space_proto_rawDescGZIP() []byte {
 	return file_space_proto_rawDescData
 }
 
-var file_space_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
+var file_space_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
 var file_space_proto_goTypes = []interface{}{
-	(*AdListResponse)(nil),          // 0: AdListResponse
-	(*SpaceKeyFilterRequest)(nil),   // 1: SpaceKeyFilterRequest
-	(*SpaceAdInfoListResponse)(nil), // 2: SpaceAdInfoListResponse
-	(*AdInfoResponse)(nil),          // 3: AdInfoResponse
-	(*SpaceFilterRequest)(nil),      // 4: SpaceFilterRequest
-	(*SpaceInfoResponse)(nil),       // 5: SpaceInfoResponse
-	(*SpaceListResponse)(nil),       // 6: SpaceListResponse
-	(*BaseProto)(nil),               // 7: BaseProto
+	(*AdUpdateStatusRequest)(nil),    // 0: AdUpdateStatusRequest
+	(*SpaceSaveOrUpdateRequest)(nil), // 1: SpaceSaveOrUpdateRequest
+	(*GetSpaceByIdRequest)(nil),      // 2: GetSpaceByIdRequest
+	(*GetSpaceByIdResponse)(nil),     // 3: GetSpaceByIdResponse
+	(*GetAllSpacesRequest)(nil),      // 4: GetAllSpacesRequest
+	(*SpaceInfoListResponse)(nil),    // 5: SpaceInfoListResponse
+	(*SpaceInfoResponse)(nil),        // 6: SpaceInfoResponse
+	(*AdSaveOrUpdateRequest)(nil),    // 7: AdSaveOrUpdateRequest
+	(*GetAllAdsResponse)(nil),        // 8: GetAllAdsResponse
+	(*GetAllAdsRequest)(nil),         // 9: GetAllAdsRequest
+	(*GetAdListRequest)(nil),         // 10: GetAdListRequest
+	(*GetAdByIdRequest)(nil),         // 11: GetAdByIdRequest
+	(*AdInfoListResponse)(nil),       // 12: AdInfoListResponse
+	(*AdInfoResponse)(nil),           // 13: AdInfoResponse
+	(*BaseProto)(nil),                // 14: BaseProto
+	(*empty.Empty)(nil),              // 15: google.protobuf.Empty
 }
 var file_space_proto_depIdxs = []int32{
-	2, // 0: AdListResponse.space_ad_info_list_responses:type_name -> SpaceAdInfoListResponse
-	7, // 1: SpaceAdInfoListResponse.base_proto:type_name -> BaseProto
-	3, // 2: SpaceAdInfoListResponse.space_ad:type_name -> AdInfoResponse
-	7, // 3: AdInfoResponse.base_proto:type_name -> BaseProto
-	7, // 4: SpaceInfoResponse.base_proto:type_name -> BaseProto
-	5, // 5: SpaceListResponse.space_list:type_name -> SpaceInfoResponse
-	4, // 6: Space.GetAllSpaces:input_type -> SpaceFilterRequest
-	1, // 7: Space.GetAdBySpaceKey:input_type -> SpaceKeyFilterRequest
-	6, // 8: Space.GetAllSpaces:output_type -> SpaceListResponse
-	0, // 9: Space.GetAdBySpaceKey:output_type -> AdListResponse
-	8, // [8:10] is the sub-list for method output_type
-	6, // [6:8] is the sub-list for method input_type
-	6, // [6:6] is the sub-list for extension type_name
-	6, // [6:6] is the sub-list for extension extendee
-	0, // [0:6] is the sub-list for field type_name
+	14, // 0: GetSpaceByIdResponse.base_proto:type_name -> BaseProto
+	6,  // 1: SpaceInfoListResponse.space_info_response:type_name -> SpaceInfoResponse
+	14, // 2: SpaceInfoResponse.base_proto:type_name -> BaseProto
+	14, // 3: AdSaveOrUpdateRequest.base_proto:type_name -> BaseProto
+	14, // 4: GetAllAdsResponse.base_proto:type_name -> BaseProto
+	13, // 5: GetAllAdsResponse.ad_info_list_rsp:type_name -> AdInfoResponse
+	13, // 6: AdInfoListResponse.ad_info_responses:type_name -> AdInfoResponse
+	14, // 7: AdInfoResponse.base_proto:type_name -> BaseProto
+	11, // 8: Space.GetAdById:input_type -> GetAdByIdRequest
+	10, // 9: Space.GetAdList:input_type -> GetAdListRequest
+	9,  // 10: Space.GetAllAds:input_type -> GetAllAdsRequest
+	7,  // 11: Space.AdSaveOrUpdate:input_type -> AdSaveOrUpdateRequest
+	4,  // 12: Space.GetAllSpaces:input_type -> GetAllSpacesRequest
+	2,  // 13: Space.GetSpaceById:input_type -> GetSpaceByIdRequest
+	1,  // 14: Space.SpaceSaveOrUpdate:input_type -> SpaceSaveOrUpdateRequest
+	0,  // 15: Space.AdUpdateStatus:input_type -> AdUpdateStatusRequest
+	13, // 16: Space.GetAdById:output_type -> AdInfoResponse
+	12, // 17: Space.GetAdList:output_type -> AdInfoListResponse
+	8,  // 18: Space.GetAllAds:output_type -> GetAllAdsResponse
+	15, // 19: Space.AdSaveOrUpdate:output_type -> google.protobuf.Empty
+	5,  // 20: Space.GetAllSpaces:output_type -> SpaceInfoListResponse
+	3,  // 21: Space.GetSpaceById:output_type -> GetSpaceByIdResponse
+	15, // 22: Space.SpaceSaveOrUpdate:output_type -> google.protobuf.Empty
+	15, // 23: Space.AdUpdateStatus:output_type -> google.protobuf.Empty
+	16, // [16:24] is the sub-list for method output_type
+	8,  // [8:16] is the sub-list for method input_type
+	8,  // [8:8] is the sub-list for extension type_name
+	8,  // [8:8] is the sub-list for extension extendee
+	0,  // [0:8] is the sub-list for field type_name
 }
 
 func init() { file_space_proto_init() }
@@ -707,7 +1286,7 @@ func file_space_proto_init() {
 	}
 	if !protoimpl.UnsafeEnabled {
 		file_space_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*AdListResponse); i {
+			switch v := v.(*AdUpdateStatusRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -719,7 +1298,7 @@ func file_space_proto_init() {
 			}
 		}
 		file_space_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SpaceKeyFilterRequest); i {
+			switch v := v.(*SpaceSaveOrUpdateRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -731,7 +1310,7 @@ func file_space_proto_init() {
 			}
 		}
 		file_space_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SpaceAdInfoListResponse); i {
+			switch v := v.(*GetSpaceByIdRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -743,7 +1322,7 @@ func file_space_proto_init() {
 			}
 		}
 		file_space_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*AdInfoResponse); i {
+			switch v := v.(*GetSpaceByIdResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -755,7 +1334,7 @@ func file_space_proto_init() {
 			}
 		}
 		file_space_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SpaceFilterRequest); i {
+			switch v := v.(*GetAllSpacesRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -767,7 +1346,7 @@ func file_space_proto_init() {
 			}
 		}
 		file_space_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SpaceInfoResponse); i {
+			switch v := v.(*SpaceInfoListResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -779,7 +1358,7 @@ func file_space_proto_init() {
 			}
 		}
 		file_space_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SpaceListResponse); i {
+			switch v := v.(*SpaceInfoResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -791,6 +1370,90 @@ func file_space_proto_init() {
 			}
 		}
 		file_space_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*AdSaveOrUpdateRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_space_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetAllAdsResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_space_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetAllAdsRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_space_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetAdListRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_space_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetAdByIdRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_space_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*AdInfoListResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_space_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*AdInfoResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_space_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*BaseProto); i {
 			case 0:
 				return &v.state
@@ -809,7 +1472,7 @@ func file_space_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_space_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   8,
+			NumMessages:   15,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
@@ -835,9 +1498,22 @@ const _ = grpc.SupportPackageIsVersion6
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type SpaceClient interface {
-	// 广告列表
-	GetAllSpaces(ctx context.Context, in *SpaceFilterRequest, opts ...grpc.CallOption) (*SpaceListResponse, error)
-	GetAdBySpaceKey(ctx context.Context, in *SpaceKeyFilterRequest, opts ...grpc.CallOption) (*AdListResponse, error)
+	// 根据ID获取广告信息
+	GetAdById(ctx context.Context, in *GetAdByIdRequest, opts ...grpc.CallOption) (*AdInfoResponse, error)
+	// 获取所有的广告信息
+	GetAdList(ctx context.Context, in *GetAdListRequest, opts ...grpc.CallOption) (*AdInfoListResponse, error)
+	//  获取所有广告位及其广告
+	GetAllAds(ctx context.Context, in *GetAllAdsRequest, opts ...grpc.CallOption) (*GetAllAdsResponse, error)
+	//  新增或者修改广告信息
+	AdSaveOrUpdate(ctx context.Context, in *AdSaveOrUpdateRequest, opts ...grpc.CallOption) (*empty.Empty, error)
+	//  获取所有的广告位
+	GetAllSpaces(ctx context.Context, in *GetAllSpacesRequest, opts ...grpc.CallOption) (*SpaceInfoListResponse, error)
+	//  根据Id获取广告位
+	GetSpaceById(ctx context.Context, in *GetSpaceByIdRequest, opts ...grpc.CallOption) (*GetSpaceByIdResponse, error)
+	//  新增或者修改广告位
+	SpaceSaveOrUpdate(ctx context.Context, in *SpaceSaveOrUpdateRequest, opts ...grpc.CallOption) (*empty.Empty, error)
+	//  更新广告的状态
+	AdUpdateStatus(ctx context.Context, in *AdUpdateStatusRequest, opts ...grpc.CallOption) (*empty.Empty, error)
 }
 
 type spaceClient struct {
@@ -848,8 +1524,44 @@ func NewSpaceClient(cc grpc.ClientConnInterface) SpaceClient {
 	return &spaceClient{cc}
 }
 
-func (c *spaceClient) GetAllSpaces(ctx context.Context, in *SpaceFilterRequest, opts ...grpc.CallOption) (*SpaceListResponse, error) {
-	out := new(SpaceListResponse)
+func (c *spaceClient) GetAdById(ctx context.Context, in *GetAdByIdRequest, opts ...grpc.CallOption) (*AdInfoResponse, error) {
+	out := new(AdInfoResponse)
+	err := c.cc.Invoke(ctx, "/Space/GetAdById", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *spaceClient) GetAdList(ctx context.Context, in *GetAdListRequest, opts ...grpc.CallOption) (*AdInfoListResponse, error) {
+	out := new(AdInfoListResponse)
+	err := c.cc.Invoke(ctx, "/Space/GetAdList", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *spaceClient) GetAllAds(ctx context.Context, in *GetAllAdsRequest, opts ...grpc.CallOption) (*GetAllAdsResponse, error) {
+	out := new(GetAllAdsResponse)
+	err := c.cc.Invoke(ctx, "/Space/GetAllAds", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *spaceClient) AdSaveOrUpdate(ctx context.Context, in *AdSaveOrUpdateRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
+	out := new(empty.Empty)
+	err := c.cc.Invoke(ctx, "/Space/AdSaveOrUpdate", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *spaceClient) GetAllSpaces(ctx context.Context, in *GetAllSpacesRequest, opts ...grpc.CallOption) (*SpaceInfoListResponse, error) {
+	out := new(SpaceInfoListResponse)
 	err := c.cc.Invoke(ctx, "/Space/GetAllSpaces", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -857,9 +1569,27 @@ func (c *spaceClient) GetAllSpaces(ctx context.Context, in *SpaceFilterRequest, 
 	return out, nil
 }
 
-func (c *spaceClient) GetAdBySpaceKey(ctx context.Context, in *SpaceKeyFilterRequest, opts ...grpc.CallOption) (*AdListResponse, error) {
-	out := new(AdListResponse)
-	err := c.cc.Invoke(ctx, "/Space/GetAdBySpaceKey", in, out, opts...)
+func (c *spaceClient) GetSpaceById(ctx context.Context, in *GetSpaceByIdRequest, opts ...grpc.CallOption) (*GetSpaceByIdResponse, error) {
+	out := new(GetSpaceByIdResponse)
+	err := c.cc.Invoke(ctx, "/Space/GetSpaceById", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *spaceClient) SpaceSaveOrUpdate(ctx context.Context, in *SpaceSaveOrUpdateRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
+	out := new(empty.Empty)
+	err := c.cc.Invoke(ctx, "/Space/SpaceSaveOrUpdate", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *spaceClient) AdUpdateStatus(ctx context.Context, in *AdUpdateStatusRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
+	out := new(empty.Empty)
+	err := c.cc.Invoke(ctx, "/Space/AdUpdateStatus", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -868,28 +1598,131 @@ func (c *spaceClient) GetAdBySpaceKey(ctx context.Context, in *SpaceKeyFilterReq
 
 // SpaceServer is the server API for Space service.
 type SpaceServer interface {
-	// 广告列表
-	GetAllSpaces(context.Context, *SpaceFilterRequest) (*SpaceListResponse, error)
-	GetAdBySpaceKey(context.Context, *SpaceKeyFilterRequest) (*AdListResponse, error)
+	// 根据ID获取广告信息
+	GetAdById(context.Context, *GetAdByIdRequest) (*AdInfoResponse, error)
+	// 获取所有的广告信息
+	GetAdList(context.Context, *GetAdListRequest) (*AdInfoListResponse, error)
+	//  获取所有广告位及其广告
+	GetAllAds(context.Context, *GetAllAdsRequest) (*GetAllAdsResponse, error)
+	//  新增或者修改广告信息
+	AdSaveOrUpdate(context.Context, *AdSaveOrUpdateRequest) (*empty.Empty, error)
+	//  获取所有的广告位
+	GetAllSpaces(context.Context, *GetAllSpacesRequest) (*SpaceInfoListResponse, error)
+	//  根据Id获取广告位
+	GetSpaceById(context.Context, *GetSpaceByIdRequest) (*GetSpaceByIdResponse, error)
+	//  新增或者修改广告位
+	SpaceSaveOrUpdate(context.Context, *SpaceSaveOrUpdateRequest) (*empty.Empty, error)
+	//  更新广告的状态
+	AdUpdateStatus(context.Context, *AdUpdateStatusRequest) (*empty.Empty, error)
 }
 
 // UnimplementedSpaceServer can be embedded to have forward compatible implementations.
 type UnimplementedSpaceServer struct {
 }
 
-func (*UnimplementedSpaceServer) GetAllSpaces(context.Context, *SpaceFilterRequest) (*SpaceListResponse, error) {
+func (*UnimplementedSpaceServer) GetAdById(context.Context, *GetAdByIdRequest) (*AdInfoResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAdById not implemented")
+}
+func (*UnimplementedSpaceServer) GetAdList(context.Context, *GetAdListRequest) (*AdInfoListResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAdList not implemented")
+}
+func (*UnimplementedSpaceServer) GetAllAds(context.Context, *GetAllAdsRequest) (*GetAllAdsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAllAds not implemented")
+}
+func (*UnimplementedSpaceServer) AdSaveOrUpdate(context.Context, *AdSaveOrUpdateRequest) (*empty.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AdSaveOrUpdate not implemented")
+}
+func (*UnimplementedSpaceServer) GetAllSpaces(context.Context, *GetAllSpacesRequest) (*SpaceInfoListResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAllSpaces not implemented")
 }
-func (*UnimplementedSpaceServer) GetAdBySpaceKey(context.Context, *SpaceKeyFilterRequest) (*AdListResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetAdBySpaceKey not implemented")
+func (*UnimplementedSpaceServer) GetSpaceById(context.Context, *GetSpaceByIdRequest) (*GetSpaceByIdResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetSpaceById not implemented")
+}
+func (*UnimplementedSpaceServer) SpaceSaveOrUpdate(context.Context, *SpaceSaveOrUpdateRequest) (*empty.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SpaceSaveOrUpdate not implemented")
+}
+func (*UnimplementedSpaceServer) AdUpdateStatus(context.Context, *AdUpdateStatusRequest) (*empty.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AdUpdateStatus not implemented")
 }
 
 func RegisterSpaceServer(s *grpc.Server, srv SpaceServer) {
 	s.RegisterService(&_Space_serviceDesc, srv)
 }
 
+func _Space_GetAdById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAdByIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SpaceServer).GetAdById(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/Space/GetAdById",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SpaceServer).GetAdById(ctx, req.(*GetAdByIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Space_GetAdList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAdListRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SpaceServer).GetAdList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/Space/GetAdList",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SpaceServer).GetAdList(ctx, req.(*GetAdListRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Space_GetAllAds_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAllAdsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SpaceServer).GetAllAds(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/Space/GetAllAds",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SpaceServer).GetAllAds(ctx, req.(*GetAllAdsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Space_AdSaveOrUpdate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AdSaveOrUpdateRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SpaceServer).AdSaveOrUpdate(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/Space/AdSaveOrUpdate",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SpaceServer).AdSaveOrUpdate(ctx, req.(*AdSaveOrUpdateRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Space_GetAllSpaces_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SpaceFilterRequest)
+	in := new(GetAllSpacesRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -901,25 +1734,61 @@ func _Space_GetAllSpaces_Handler(srv interface{}, ctx context.Context, dec func(
 		FullMethod: "/Space/GetAllSpaces",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SpaceServer).GetAllSpaces(ctx, req.(*SpaceFilterRequest))
+		return srv.(SpaceServer).GetAllSpaces(ctx, req.(*GetAllSpacesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Space_GetAdBySpaceKey_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SpaceKeyFilterRequest)
+func _Space_GetSpaceById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetSpaceByIdRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SpaceServer).GetAdBySpaceKey(ctx, in)
+		return srv.(SpaceServer).GetSpaceById(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/Space/GetAdBySpaceKey",
+		FullMethod: "/Space/GetSpaceById",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SpaceServer).GetAdBySpaceKey(ctx, req.(*SpaceKeyFilterRequest))
+		return srv.(SpaceServer).GetSpaceById(ctx, req.(*GetSpaceByIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Space_SpaceSaveOrUpdate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SpaceSaveOrUpdateRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SpaceServer).SpaceSaveOrUpdate(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/Space/SpaceSaveOrUpdate",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SpaceServer).SpaceSaveOrUpdate(ctx, req.(*SpaceSaveOrUpdateRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Space_AdUpdateStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AdUpdateStatusRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SpaceServer).AdUpdateStatus(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/Space/AdUpdateStatus",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SpaceServer).AdUpdateStatus(ctx, req.(*AdUpdateStatusRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -929,12 +1798,36 @@ var _Space_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*SpaceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
+			MethodName: "GetAdById",
+			Handler:    _Space_GetAdById_Handler,
+		},
+		{
+			MethodName: "GetAdList",
+			Handler:    _Space_GetAdList_Handler,
+		},
+		{
+			MethodName: "GetAllAds",
+			Handler:    _Space_GetAllAds_Handler,
+		},
+		{
+			MethodName: "AdSaveOrUpdate",
+			Handler:    _Space_AdSaveOrUpdate_Handler,
+		},
+		{
 			MethodName: "GetAllSpaces",
 			Handler:    _Space_GetAllSpaces_Handler,
 		},
 		{
-			MethodName: "GetAdBySpaceKey",
-			Handler:    _Space_GetAdBySpaceKey_Handler,
+			MethodName: "GetSpaceById",
+			Handler:    _Space_GetSpaceById_Handler,
+		},
+		{
+			MethodName: "SpaceSaveOrUpdate",
+			Handler:    _Space_SpaceSaveOrUpdate_Handler,
+		},
+		{
+			MethodName: "AdUpdateStatus",
+			Handler:    _Space_AdUpdateStatus_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
