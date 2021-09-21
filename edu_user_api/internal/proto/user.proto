@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+option go_package = "/.;proto";
+
+service User {
+    // 用户登录
+    rpc Login(LoginRequest) returns (LoginResponse);
+    // 用户信息
+    rpc GetInfo(GetInfoRequest) returns (GetInfoResponse);
+    // 更新用户信息
+    rpc UpdateInfo(UpdateInfoRequest) returns (google.protobuf.Empty);
+    // 修改密码
+    rpc UpdatePassword(UpdatePasswordRequest) returns (google.protobuf.Empty);
+    //  新增或者修改广告信息
+//    rpc AdSaveOrUpdate(AdSaveOrUpdateRequest) returns (google.protobuf.Empty);
+}
+
+message UpdatePasswordRequest {
+    int32 id = 1;
+    string new_password = 2;
+}
+
+message UpdateInfoRequest {
+    int32 id = 1;
+    string portrait = 2;
+    string phone = 3;
+}
+
+message GetInfoRequest {
+    int32 id = 1;
+}
+
+message GetInfoResponse {
+    string password = 1;
+    string portrait = 2;
+    string phone = 3;
+    string reg_ip = 4;
+    string status = 5;
+    int32 id = 6;
+}
+
+message LoginRequest {
+    string phone = 1;
+}
+
+message LoginResponse {
+    string password = 1;
+    string portrait = 2;
+    string phone = 3;
+    string reg_ip = 4;
+    string status = 5;
+    int32 id = 6;
+}

@@ -1,0 +1,11 @@
+2021-09-19T21:58:50.913+0800	[34mINFO[0m	[client.ListenConfig] request params:map[Listening-Configs:edu_ad_web.jsonreleaseb832e6091cee75b911bb60de453d4560e9e60a10-85d4-4a6f-ba1a-80e1f4e6f137 tenant:e9e60a10-85d4-4a6f-ba1a-80e1f4e6f137] header:map[Content-Type:application/x-www-form-urlencoded;charset=utf-8 Long-Pulling-Timeout:30000 Long-Pulling-Timeout-No-Hangup:true accessKey: secretKey:] 
+
+2021-09-19T21:58:52.917+0800	[34mINFO[0m	[client.ListenConfig] no change
+2021-09-19T21:58:52.929+0800	[34mINFO[0m	[client.ListenConfig] request params:map[Listening-Configs:edu_ad_web.jsonreleaseb832e6091cee75b911bb60de453d4560e9e60a10-85d4-4a6f-ba1a-80e1f4e6f137 tenant:e9e60a10-85d4-4a6f-ba1a-80e1f4e6f137] header:map[Content-Type:application/x-www-form-urlencoded;charset=utf-8 Long-Pulling-Timeout:30000 accessKey: secretKey:] 
+
+2021-09-19T21:59:22.437+0800	[34mINFO[0m	[client.ListenConfig] no change
+2021-09-19T21:59:22.448+0800	[34mINFO[0m	[client.ListenConfig] request params:map[Listening-Configs:edu_ad_web.jsonreleaseb832e6091cee75b911bb60de453d4560e9e60a10-85d4-4a6f-ba1a-80e1f4e6f137 tenant:e9e60a10-85d4-4a6f-ba1a-80e1f4e6f137] header:map[Content-Type:application/x-www-form-urlencoded;charset=utf-8 Long-Pulling-Timeout:30000 accessKey: secretKey:] 
+
+2021-09-19T21:59:51.961+0800	[34mINFO[0m	[client.ListenConfig] no change
+2021-09-19T21:59:51.972+0800	[34mINFO[0m	[client.ListenConfig] request params:map[Listening-Configs:edu_ad_web.jsonreleaseb832e6091cee75b911bb60de453d4560e9e60a10-85d4-4a6f-ba1a-80e1f4e6f137 tenant:e9e60a10-85d4-4a6f-ba1a-80e1f4e6f137] header:map[Content-Type:application/x-www-form-urlencoded;charset=utf-8 Long-Pulling-Timeout:30000 accessKey: secretKey:] 
+
